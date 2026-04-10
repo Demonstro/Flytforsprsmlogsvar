@@ -2,9 +2,7 @@ import { useParams, Link } from "react-router";
 import { ALL_SERVICES, getServiceBySlug, type ServiceData } from "../data/services";
 import svgPaths from "../../imports/HelpServicesLandingPage/svg-mtcrfxvim5";
 import serviceSvgPaths from "../../imports/ServicePage/svg-sayhlcbu1w";
-import imgImage from "../../imports/ServicePage/f8395b3dc9fd0a495e241f6bfd476daefdf2def2.png";
-import imgImage1 from "../../imports/ServicePage/db55e3de3fc0e5ac73ac48a5550d00b9c8c54c6d.png";
-import imgImage2 from "../../imports/ServicePage/fe47869726aa1aab9193d0e7666a69487fce30a2.png";
+import { SERVICE_IMG_1 as imgImage, SERVICE_IMG_2 as imgImage1, SERVICE_IMG_3 as imgImage2 } from "../data/images";
 
 /* ─── Icons ─── */
 function SmartphoneIcon() {

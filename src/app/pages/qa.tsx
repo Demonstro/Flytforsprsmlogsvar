@@ -2,10 +2,7 @@ import { useState } from "react";
 import type { ReactNode } from "react";
 import { Link, useNavigate } from "react-router";
 import newSvg from "../../imports/svg-qw0ft7gxmf";
-import imgFrame3857 from "figma:asset/94badd35d44dd292aecf82e1041ee9b4fa8484c8.png";
-import imgFrame3856 from "figma:asset/9ace3e9c006411cfde0d1fb6f41373bcaf19bec2.png";
-import imgFrame3858 from "figma:asset/d9d46ca57210dba31b9d1ceed20995f95a661508.png";
-import imgFrame3859 from "figma:asset/5fd5c2aab47c5d88c6eda0278ed510bb43f14577.png";
+import { CARD_IMG_1 as imgFrame3857, CARD_IMG_2 as imgFrame3856, CARD_IMG_3 as imgFrame3858, CARD_IMG_4 as imgFrame3859 } from "../data/images";
 import { MOCK_QUESTIONS } from "../components/shared";
 import { Button } from "../components/button";
 

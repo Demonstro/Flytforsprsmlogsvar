@@ -3,10 +3,7 @@ import { useLocation, Link } from "react-router";
 import { ArrowRightSmallIcon } from "../components/shared";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import confirmSvgPaths from "../../imports/svg-9t1dmobbei";
-import imgCard1 from "figma:asset/94badd35d44dd292aecf82e1041ee9b4fa8484c8.png";
-import imgCard2 from "figma:asset/9ace3e9c006411cfde0d1fb6f41373bcaf19bec2.png";
-import imgCard3 from "figma:asset/d9d46ca57210dba31b9d1ceed20995f95a661508.png";
-import imgCard4 from "figma:asset/5fd5c2aab47c5d88c6eda0278ed510bb43f14577.png";
+import { CARD_IMG_1 as imgCard1, CARD_IMG_2 as imgCard2, CARD_IMG_3 as imgCard3, CARD_IMG_4 as imgCard4 } from "../data/images";
 
 /* ─── Most-read question cards for confirmation carousel ─── */
 const MOST_READ_QUESTIONS = [

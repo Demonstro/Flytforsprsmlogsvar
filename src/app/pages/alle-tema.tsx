@@ -3,24 +3,26 @@ import { Link, useNavigate } from "react-router";
 import { Button } from "../components/button";
 import { MOCK_QUESTIONS } from "../components/shared";
 
-/* ─── Figma-imported images ─── */
-import imgFrame3857 from "figma:asset/bc70480499797737329ee7a80c9c41a57782ed55.png";
-import imgFrame3858 from "figma:asset/cec9e257a1a9e2bbe14b8ec0364e2116565fc240.png";
-import imgFrame3859 from "figma:asset/714070cf21165cf8e24cbc1b46666049709d698d.png";
-import imgFrame3860 from "figma:asset/956a705c56285f348fd3106a58fe3c0fbd2aa9a9.png";
-import imgFrame3861 from "figma:asset/76d5b0b60fe89c3cf83e5ca65c56dca72d9e829e.png";
-import imgFrame3862 from "figma:asset/cb44f70d6f0098db5ff62a490a1d7b33f0b46022.png";
-import imgFrame3863 from "figma:asset/0486c8b4b11093a86fa8d0883cb25a2a93f92d86.png";
-import imgFrame3864 from "figma:asset/d4c442ea27fd8056a0ab2b29aeefd8a593383871.png";
-import imgFrame3865 from "figma:asset/765fe870e154b72e08fedd82ff17c5f4e60e8bde.png";
-import imgFrame3866 from "figma:asset/c171415e85e0f3821e6878ad7140dc29fd771a53.png";
-import imgFrame3867 from "figma:asset/08f9babd7cb41419fa08798046a020cf36716c2a.png";
-import imgFrame3868 from "figma:asset/0d38ce98b91ea0024cd5942ff610be912265fb91.png";
-import imgFrame3869 from "figma:asset/7bbc2f28cb3ff3ec689acc456b65185b341231d9.png";
-import imgFrame3870 from "figma:asset/51bbcb5f2e7f2c9cdfa8a396f45a98d08c0c14dd.png";
-import imgFrame3871 from "figma:asset/a5cb5956cfb91b509727f72778a785783b53515e.png";
-import imgFrame3872 from "figma:asset/872515fe42b8a1fa971b05304057602cae23193d.png";
-import imgFrame3873 from "figma:asset/ef698f9836d89cb2440cd2d74f1e8e05f896ec9e.png";
+/* ─── Topic images ─── */
+import {
+  TOPIC_SEX as imgFrame3857,
+  TOPIC_KROPP as imgFrame3858,
+  TOPIC_RUSMIDLER as imgFrame3859,
+  TOPIC_HELSE as imgFrame3860,
+  TOPIC_PSYKISK as imgFrame3861,
+  TOPIC_SELVTILLIT as imgFrame3862,
+  TOPIC_FORELSKELSE as imgFrame3863,
+  TOPIC_UTDANNING as imgFrame3864,
+  TOPIC_SKOLE as imgFrame3865,
+  TOPIC_JOBB as imgFrame3866,
+  TOPIC_KRIMINALITET as imgFrame3867,
+  TOPIC_DEMOKRATI as imgFrame3868,
+  TOPIC_KLIMA as imgFrame3869,
+  TOPIC_LOV as imgFrame3870,
+  TOPIC_FAMILIE as imgFrame3871,
+  TOPIC_FRITID as imgFrame3872,
+  TOPIC_OKONOMI as imgFrame3873,
+} from "../data/images";
 
 import svgPaths from "../../imports/svg-9a2j5szz9x";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
