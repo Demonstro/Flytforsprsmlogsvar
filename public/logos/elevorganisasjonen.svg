@@ -1,0 +1,8 @@
+<svg preserveAspectRatio="xMidYMid meet" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 60 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Logo">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M43.4877 0C52.6072 0 60 7.3873 60 16.5C60 25.6127 52.6072 33 43.4877 33C34.3683 33 26.9755 25.6127 26.9755 16.5C26.9755 7.3873 34.3683 0 43.4877 0ZM43.4877 5.66337C37.4984 5.66337 32.6431 10.5151 32.6431 16.5C32.6431 22.4849 37.4984 27.3366 43.4877 27.3366C49.4771 27.3366 54.3324 22.4849 54.3324 16.5C54.3324 10.5151 49.4771 5.66337 43.4877 5.66337Z" fill="var(--fill-0, #FF633F)"/>
+<path d="M23.2153 31.0396H0V25.2129H23.2153V31.0396Z" fill="var(--fill-0, #FF633F)"/>
+<path d="M19.1826 19.4406H0V13.6139H19.1826V19.4406Z" fill="var(--fill-0, #FF633F)"/>
+<path d="M23.2153 7.84158H0V2.01485H23.2153V7.84158Z" fill="var(--fill-0, #FF633F)"/>
+</g>
+</svg>

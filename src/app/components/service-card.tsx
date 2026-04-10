@@ -16,7 +16,7 @@ export interface ServiceCardProps {
   logo: React.ReactNode;
   status?: {
     text: string;
-    variant: "open" | "available" | "tool";
+    variant: "open" | "available" | "tool" | "closed";
   };
   buttons: ServiceButton[];
   detailLink?: string;
@@ -44,10 +44,12 @@ export function ServiceCard({
               {status && (
                 <div className="flex gap-[4px] items-center">
                   <p
-                    className={`font-['Open_Sans',sans-serif] leading-[20px] text-[14px] tracking-[-0.056px] whitespace-nowrap ${
+                    className={`font-['Open_Sans',sans-serif] leading-[20px] text-[14px] tracking-[-0.056px] whitespace-nowrap font-semibold ${
                       status.variant === "open"
-                        ? "text-[#2b5944] font-semibold"
-                        : "text-[#0f0f0f] font-normal"
+                        ? "text-[#2b5944]"
+                        : status.variant === "closed"
+                        ? "text-[#b82a1f]"
+                        : "text-[#0f0f0f]"
                     }`}
                     style={{ fontVariationSettings: "'wdth' 100" }}
                   >
