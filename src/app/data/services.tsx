@@ -1879,6 +1879,8 @@ export function toCardProps(s: ServiceData): ServiceCardProps {
     statusObj = { text: "Selvhjelpsverktøy", variant: "tool" as const };
   }
 
+  const isClosed = s.type === "snakk" && statusObj?.variant === "closed";
+
   return {
     title: s.title,
     description: s.ingress,
@@ -1889,9 +1891,20 @@ export function toCardProps(s: ServiceData): ServiceCardProps {
       label: b.label,
       href: b.href,
       icon: b.icon,
+      disabled: isClosed && (b.type === "chat" || b.type === "phone"),
     })),
     detailLink: `/hjelpetjenester/${s.slug}`,
   };
+}
+
+/** Sort services: open/døgnåpen first, then closed */
+export function sortByOpenStatus(services: ServiceData[]): ServiceData[] {
+  return [...services].sort((a, b) => {
+    const statusA = a.type === "snakk" ? getOpenStatus(a.openingHours) : "Åpen";
+    const statusB = b.type === "snakk" ? getOpenStatus(b.openingHours) : "Åpen";
+    const rank = (s: ServiceStatus | "Åpen") => s === "Stengt" ? 1 : 0;
+    return rank(statusA) - rank(statusB);
+  });
 }
 
 /* ─── Filter services by tag ─── */

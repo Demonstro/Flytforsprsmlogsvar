@@ -129,10 +129,24 @@ function ServiceButton({ type, label, href = "#", disabled = false, icon }: Serv
   }
 
   if (type === "chat") {
+    if (disabled) {
+      return (
+        <span className={`${baseClasses} bg-[#dfdfdf] text-[#888] cursor-not-allowed`}>
+          <span className="font-['Open_Sans',sans-serif] font-semibold leading-[24px] text-[16px] tracking-[-0.064px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+            {label}
+          </span>
+          <div className="size-[20px]">
+            <svg className="block size-full" fill="none" viewBox="0 0 20 20">
+              <path d={svgPaths.p12127880} fill="currentColor" />
+            </svg>
+          </div>
+        </span>
+      );
+    }
     return (
       <a
         href={href}
-        className={`${baseClasses} ${disabled ? "bg-[#dfdfdf] text-[#888] cursor-not-allowed" : "bg-[#dfdfdf] hover:bg-[#d0d0d0] text-[#888]"}`}
+        className={`${baseClasses} bg-[#2b5944] hover:bg-[#3c7c5e] text-white`}
       >
         <span className="font-['Open_Sans',sans-serif] font-semibold leading-[24px] text-[16px] tracking-[-0.064px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
           {label}
@@ -147,6 +161,27 @@ function ServiceButton({ type, label, href = "#", disabled = false, icon }: Serv
   }
 
   if (type === "phone") {
+    if (disabled) {
+      return (
+        <span className={`${baseClasses} border border-[#888] text-[#888] cursor-not-allowed`}>
+          <div className="size-[20px] overflow-clip">
+            <svg className="block size-full" fill="none" viewBox="0 0 20 20">
+              <g clipPath="url(#clip0_53_2815)">
+                <path d={svgPaths.p2e43180} fill="#888888" />
+              </g>
+              <defs>
+                <clipPath id="clip0_53_2815">
+                  <rect fill="white" height="20" width="20" />
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+          <span className="font-['Open_Sans',sans-serif] font-semibold leading-[24px] text-[16px] tracking-[-0.064px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+            {label}
+          </span>
+        </span>
+      );
+    }
     return (
       <a
         href={href}
@@ -155,7 +190,7 @@ function ServiceButton({ type, label, href = "#", disabled = false, icon }: Serv
         <div className="size-[20px] overflow-clip">
           <svg className="block size-full" fill="none" viewBox="0 0 20 20">
             <g clipPath="url(#clip0_53_2815)">
-              <path d={svgPaths.p2e43180} fill="#888888" />
+              <path d={svgPaths.p2e43180} fill="#0f0f0f" />
             </g>
             <defs>
               <clipPath id="clip0_53_2815">

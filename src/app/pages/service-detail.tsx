@@ -1,5 +1,5 @@
-import { useParams, Link } from "react-router";
-import { ALL_SERVICES, getServiceBySlug, type ServiceData, type WeeklyHours, isDognapen, getOpenStatus } from "../data/services";
+import { useParams, Link, useNavigate } from "react-router";
+import { ALL_SERVICES, getServiceBySlug, sortByOpenStatus, type ServiceData, type WeeklyHours, isDognapen, getOpenStatus } from "../data/services";
 import svgPaths from "../../imports/HelpServicesLandingPage/svg-mtcrfxvim5";
 import serviceSvgPaths from "../../imports/ServicePage/svg-sayhlcbu1w";
 import { SERVICE_IMG_1 as imgImage, SERVICE_IMG_2 as imgImage1, SERVICE_IMG_3 as imgImage2 } from "../data/images";
@@ -124,6 +124,7 @@ function getChannelStatus(service: ServiceData) {
 /* ─── Page Component ─── */
 export function ServiceDetail() {
   const { slug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
   const service = slug ? getServiceBySlug(slug) : undefined;
 
   if (!service) {
@@ -141,17 +142,19 @@ export function ServiceDetail() {
 
   const images = service.slug === "grubl" ? GRUBL_IMAGES : undefined;
   const channels = getChannelStatus(service);
+  const serviceStatus = service.type === "snakk" ? getOpenStatus(service.openingHours) : null;
+  const isClosed = serviceStatus === "Stengt";
 
-  // Related services: others sharing at least one tag
-  const related = ALL_SERVICES
-    .filter((s) => s.slug !== service.slug && s.tags.some((t) => service.tags.includes(t)))
-    .slice(0, 5);
+  // Related services: others sharing at least one tag, open first
+  const related = sortByOpenStatus(
+    ALL_SERVICES.filter((s) => s.slug !== service.slug && s.tags.some((t) => service.tags.includes(t)))
+  ).slice(0, 5);
 
   return (
     <div className="bg-[#f5f3f0] min-h-screen">
       {/* Navigation */}
       <div className="px-3 py-4">
-        <Link to="/hjelpetjenester" className="group inline-flex flex-col gap-[4px] items-center py-[8px]">
+        <button onClick={() => navigate(-1)} className="group inline-flex flex-col gap-[4px] items-center py-[8px]">
           <div className="flex gap-[4px] items-center">
             <div className="size-[20px] overflow-clip">
               <svg className="block size-full" fill="none" viewBox="0 0 20 20">
@@ -170,7 +173,7 @@ export function ServiceDetail() {
               </svg>
             </div>
           </div>
-        </Link>
+        </button>
       </div>
 
       {/* Page header */}
@@ -229,6 +232,15 @@ export function ServiceDetail() {
               );
             }
             if (btn.type === "web" || btn.type === "chat") {
+              const btnDisabled = isClosed && btn.type === "chat";
+              if (btnDisabled) {
+                return (
+                  <span key={i} className="inline-flex gap-2 items-center bg-[#dfdfdf] text-[#888] min-h-[44px] px-5 py-[10px] rounded-[9999px] cursor-not-allowed">
+                    <WebIcon />
+                    <span className="font-['Open_Sans',sans-serif] font-semibold leading-[24px] text-[16px] tracking-[-0.064px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>{btn.label}</span>
+                  </span>
+                );
+              }
               return (
                 <a key={i} href={btn.href} target="_blank" rel="noopener noreferrer" className="inline-flex gap-2 items-center bg-[#2b5944] hover:bg-[#3c7c5e] text-white min-h-[44px] px-5 py-[10px] rounded-[9999px] transition-colors">
                   <WebIcon />
@@ -237,8 +249,16 @@ export function ServiceDetail() {
               );
             }
             if (btn.type === "phone") {
+              const btnDisabled = isClosed;
+              if (btnDisabled) {
+                return (
+                  <span key={i} className="inline-flex gap-2 items-center border border-[#888] text-[#888] min-h-[44px] px-5 py-[10px] rounded-[9999px] cursor-not-allowed">
+                    <span className="font-['Open_Sans',sans-serif] font-semibold leading-[24px] text-[16px] tracking-[-0.064px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>{btn.label}</span>
+                  </span>
+                );
+              }
               return (
-                <a key={i} href={btn.href} className="inline-flex gap-2 items-center border border-[#888] hover:bg-[#f5f3f0] text-[#888] min-h-[44px] px-5 py-[10px] rounded-[9999px] transition-colors">
+                <a key={i} href={btn.href} className="inline-flex gap-2 items-center border border-[#0f0f0f] hover:bg-[#f5f3f0] text-[#0f0f0f] min-h-[44px] px-5 py-[10px] rounded-[9999px] transition-colors">
                   <span className="font-['Open_Sans',sans-serif] font-semibold leading-[24px] text-[16px] tracking-[-0.064px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>{btn.label}</span>
                 </a>
               );
@@ -270,7 +290,7 @@ export function ServiceDetail() {
                   <img alt="" className="object-cover size-full" src={src} />
                 </div>
               ))}
-              <div className="shrink-0 w-0" />
+              <div className="shrink-0 w-px" />
             </div>
           </div>
         )}
@@ -296,7 +316,7 @@ export function ServiceDetail() {
               Se alle
             </Link>
           </div>
-          <div className="flex gap-3 items-stretch overflow-x-auto pl-3 scrollbar-hide" style={{ scrollbarWidth: "none" }}>
+          <div className="flex gap-3 items-stretch overflow-x-auto pl-3 -my-2 py-2 pb-2 scrollbar-hide" style={{ scrollbarWidth: "none" }}>
             {related.map((s) => (
               <div key={s.slug} className="flex shrink-0">
                 <Link to={`/hjelpetjenester/${s.slug}`} className="flex">
@@ -314,7 +334,7 @@ export function ServiceDetail() {
                 </Link>
               </div>
             ))}
-            <div className="shrink-0 w-0" />
+            <div className="shrink-0 w-px" />
           </div>
         </div>
       )}

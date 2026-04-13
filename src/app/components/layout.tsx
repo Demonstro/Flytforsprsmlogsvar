@@ -43,8 +43,8 @@ export function RootLayout() {
   }, [handleScroll]);
 
   return (
-    <div className="bg-[#f5f3f0] flex flex-col items-center min-h-screen w-full font-['Open_Sans',sans-serif]">
-      <div className="w-full max-w-[375px] flex flex-col min-h-screen">
+    <div className="bg-[#2b2b2b] flex flex-col items-center min-h-screen w-full font-['Open_Sans',sans-serif]">
+      <div className="w-full max-w-[412px] flex flex-col min-h-screen bg-[#f5f3f0]">
         {/* ─── Header ─── */}
         <header
           className={`${isAnswerPage ? "bg-[#acd7c3]" : "bg-[#f5f3f0]"} sticky top-0 z-50 flex items-center justify-between p-3 w-full transition-transform duration-300 ease-in-out`}

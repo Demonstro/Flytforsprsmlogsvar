@@ -1,6 +1,6 @@
-import { useParams, Link } from "react-router";
+import { useParams, Link, useNavigate } from "react-router";
 import { getMainCategoryBySlug, getCategoryGroupBySlug, getCategoryGroupTags, type MainCategory, type CategoryGroup } from "../data/categories";
-import { ALL_SERVICES, toCardProps, getOpenStatus } from "../data/services";
+import { ALL_SERVICES, toCardProps, getOpenStatus, sortByOpenStatus } from "../data/services";
 import { ServiceCard } from "../components/service-card";
 import svgPaths from "../../imports/HelpServicesLandingPage/svg-mtcrfxvim5";
 
@@ -40,8 +40,8 @@ export function ServiceCategoryPage() {
           const services = ALL_SERVICES.filter((s) => s.tags.some((t) => tags.includes(t)));
           if (services.length === 0) return null;
           return (
-            <div key={group.slug} className="mb-8 px-3">
-              <div className="flex items-center justify-between mb-4">
+            <div key={group.slug} className="mb-8">
+              <div className="flex items-center justify-between mb-4 px-3">
                 <h2 className="font-['Borna',sans-serif] leading-[24px] text-[#0f0f0f] text-[18px] tracking-[-0.072px]" style={{ fontWeight: 600 }}>
                   {group.label}
                 </h2>
@@ -54,15 +54,15 @@ export function ServiceCategoryPage() {
                 </Link>
               </div>
               <div
-                className="flex gap-3 items-stretch overflow-x-auto -ml-3 pl-3 w-[calc(100%+0.75rem)] -my-2 py-2 pb-2 scrollbar-hide"
+                className="flex gap-3 items-stretch overflow-x-auto pl-3 -my-2 py-2 pb-2 scrollbar-hide"
                 style={{ scrollbarWidth: "none" }}
               >
-                {services.slice(0, 5).map((service) => (
+                {sortByOpenStatus(services).slice(0, 5).map((service) => (
                   <div key={service.slug} className="flex shrink-0">
                     <ServiceCard {...toCardProps(service)} />
                   </div>
                 ))}
-                <div className="shrink-0 w-0" />
+                <div className="shrink-0 w-px" />
               </div>
             </div>
           );
@@ -94,7 +94,7 @@ export function ServiceSubCategoryPage() {
 
   return (
     <div className="bg-[#f5f3f0] min-h-screen pb-12">
-      <BackLink to={`/hjelpetjenester/kategori/${main.slug}`} />
+      <BackLink />
 
       <div className="px-3 pb-2">
         <p className="font-['Open_Sans',sans-serif] font-normal leading-[20px] text-[#454545] text-[14px] tracking-[-0.056px] mb-1" style={{ fontVariationSettings: "'wdth' 100" }}>
@@ -177,10 +177,11 @@ function ServiceListItem({ service }: { service: typeof ALL_SERVICES[number] }) 
 }
 
 /* ─── Back link ─── */
-function BackLink({ to = "/hjelpetjenester" }: { to?: string }) {
+function BackLink() {
+  const navigate = useNavigate();
   return (
     <div className="px-3 py-4">
-      <Link to={to} className="group inline-flex flex-col gap-[4px] items-center py-[8px]">
+      <button onClick={() => navigate(-1)} className="group inline-flex flex-col gap-[4px] items-center py-[8px]">
         <div className="flex gap-[4px] items-center">
           <div className="size-[20px] overflow-clip">
             <svg className="block size-full" fill="none" viewBox="0 0 20 20">
@@ -199,7 +200,7 @@ function BackLink({ to = "/hjelpetjenester" }: { to?: string }) {
             </svg>
           </div>
         </div>
-      </Link>
+      </button>
     </div>
   );
 }

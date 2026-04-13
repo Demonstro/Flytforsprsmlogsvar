@@ -1,11 +1,21 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { ServiceCard } from "../components/service-card";
-import { ALL_SERVICES, toCardProps, servicesByTag, getOpenStatus, type ServiceData } from "../data/services";
+import { ALL_SERVICES, toCardProps, servicesByTag, getOpenStatus, sortByOpenStatus, type ServiceData } from "../data/services";
+import { CATEGORIES } from "../data/categories";
 import svgPaths from "../../imports/HelpServicesLandingPage/svg-mtcrfxvim5";
 import fullBlockSvg from "../../imports/HelpServicesLandingPage/svg-fullblock";
 
+const CATEGORY_ILLUSTRATIONS: Record<string, string> = {
+  "kropp-helse-sex": "kropp.svg",
+  "folelser-identitet-forelskelse": "forelskelse.svg",
+  "skole-utdanning-jobb": "skole.svg",
+  "samfunn-lover-rettigheter": "lover.svg",
+  "familie-venner-fritid": "fritid.svg",
+};
+
 export function Hjelpetjenester() {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
 
   const filterBySearch = (services: ServiceData[]) =>
@@ -54,7 +64,7 @@ export function Hjelpetjenester() {
     <div className="bg-[#f5f3f0] min-h-screen pb-12">
       {/* ─── Back + Heading ─── */}
       <div className="px-3 pt-6 pb-2">
-        <Link to="/" className="group inline-flex flex-col gap-[4px] items-center py-[8px] mb-6">
+        <button onClick={() => navigate(-1)} className="group inline-flex flex-col gap-[4px] items-center py-[8px] mb-6">
           <div className="flex gap-[4px] items-center">
             <div className="size-[20px] overflow-clip">
               <svg className="block size-full" fill="none" viewBox="0 0 20 20">
@@ -73,7 +83,7 @@ export function Hjelpetjenester() {
               </svg>
             </div>
           </div>
-        </Link>
+        </button>
 
         <h1 className="font-['Borna',sans-serif] leading-[36px] text-[#0f0f0f] text-[30px] tracking-[-0.12px] mb-5" style={{ fontWeight: 600 }}>
           Hjelp deg selv eller få hjelp
@@ -125,6 +135,28 @@ export function Hjelpetjenester() {
           </button>
         </div>
       </div>
+
+      {/* ─── Category links ─── */}
+      {!isSearching && (
+        <div className="px-3 pb-6 flex flex-col gap-2">
+          {CATEGORIES.map((cat) => (
+            <Link
+              key={cat.slug}
+              to={`/hjelpetjenester/kategori/${cat.slug}`}
+              className="bg-white rounded-[12px] flex items-center gap-3 px-4 py-3 hover:shadow-md transition-shadow"
+            >
+              <img
+                src={`${import.meta.env.BASE_URL}illustrations/${CATEGORY_ILLUSTRATIONS[cat.slug] || "kropp.svg"}`}
+                alt=""
+                className="size-[40px] object-contain shrink-0"
+              />
+              <span className="font-['Open_Sans',sans-serif] font-semibold leading-[24px] text-[#0f0f0f] text-[16px] tracking-[-0.064px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+                {cat.label}
+              </span>
+            </Link>
+          ))}
+        </div>
+      )}
 
       {/* ─── Search results ─── */}
       {isSearching ? (
@@ -199,8 +231,6 @@ export function Hjelpetjenester() {
           {/* ─── Sex carousel ─── */}
           <TagCarousel title="Sex" services={sexServices} seeAllLink="/hjelpetjenester/kategori/kropp-helse-sex/sex" />
 
-          {/* ─── Problemer hjemme (compact) ─── */}
-          <CompactCarousel title="Problemer hjemme" services={problHjemmeServices} seeAllLink="/hjelpetjenester/kategori/familie-venner-fritid/vold" />
 
           {/* ─── Mest populære apper (compact) ─── */}
           <CompactCarousel title="Mest populære apper" services={appServices} />
@@ -217,8 +247,8 @@ export function Hjelpetjenester() {
 function TagCarousel({ title, services, seeAllLink }: { title: string; services: ServiceData[]; seeAllLink?: string }) {
   if (services.length === 0) return null;
   return (
-    <div className="mb-8 px-3">
-      <div className="flex items-center justify-between mb-4">
+    <div className="mb-8">
+      <div className="flex items-center justify-between mb-4 px-3">
         <h2 className="font-['Borna',sans-serif] leading-[24px] text-[#0f0f0f] text-[18px] tracking-[-0.072px]" style={{ fontWeight: 600 }}>
           {title}
         </h2>
@@ -233,15 +263,15 @@ function TagCarousel({ title, services, seeAllLink }: { title: string; services:
         )}
       </div>
       <div
-        className="flex gap-3 items-stretch overflow-x-auto -ml-3 pl-3 w-[calc(100%+0.75rem)] -my-2 py-2 pb-2 scrollbar-hide"
+        className="flex gap-3 items-stretch overflow-x-auto pl-3 -my-2 py-2 pb-2 scrollbar-hide"
         style={{ scrollbarWidth: "none" }}
       >
-        {services.slice(0, 5).map((service) => (
+        {sortByOpenStatus(services).slice(0, 5).map((service) => (
           <div key={service.slug} className="flex shrink-0">
             <ServiceCard {...toCardProps(service)} />
           </div>
         ))}
-        <div className="shrink-0 w-0" />
+        <div className="shrink-0 w-px" />
       </div>
     </div>
   );
@@ -251,8 +281,8 @@ function TagCarousel({ title, services, seeAllLink }: { title: string; services:
 function CompactCarousel({ title, services, seeAllLink }: { title: string; services: ServiceData[]; seeAllLink?: string }) {
   if (services.length === 0) return null;
   return (
-    <div className="mb-8 px-3">
-      <div className="flex items-center justify-between mb-4">
+    <div className="mb-8">
+      <div className="flex items-center justify-between mb-4 px-3">
         <h2 className="font-['Borna',sans-serif] leading-[24px] text-[#0f0f0f] text-[18px] tracking-[-0.072px]" style={{ fontWeight: 600 }}>
           {title}
         </h2>
@@ -267,13 +297,13 @@ function CompactCarousel({ title, services, seeAllLink }: { title: string; servi
         )}
       </div>
       <div
-        className="flex gap-3 items-stretch overflow-x-auto -ml-3 pl-3 w-[calc(100%+0.75rem)] -my-2 py-2 pb-2 scrollbar-hide"
+        className="flex gap-3 items-stretch overflow-x-auto pl-3 -my-2 py-2 pb-2 scrollbar-hide"
         style={{ scrollbarWidth: "none" }}
       >
-        {services.slice(0, 5).map((service) => (
+        {sortByOpenStatus(services).slice(0, 5).map((service) => (
           <CompactCard key={service.slug} service={service} />
         ))}
-        <div className="shrink-0 w-0" />
+        <div className="shrink-0 w-px" />
       </div>
     </div>
   );
