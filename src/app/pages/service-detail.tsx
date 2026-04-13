@@ -215,8 +215,8 @@ export function ServiceDetail() {
         </div>
       </div>
 
-      {/* Main content card — no decorative strip */}
-      <div className="bg-white rounded-t-[36px] overflow-hidden pb-10 mt-8">
+      {/* Main content card */}
+      <div className="bg-white rounded-[36px] overflow-hidden pb-10 mt-8 mx-3">
         {/* Action buttons */}
         <div className="px-3 pt-8 pb-0 flex flex-wrap gap-4">
           {service.actionButtons.map((btn, i) => {
@@ -287,7 +287,7 @@ export function ServiceDetail() {
 
       {/* Related services */}
       {related.length > 0 && (
-        <div className="bg-[#dbddff] py-6">
+        <div className="bg-[#dbddff] py-6 mt-8">
           <div className="flex items-start justify-between px-3 mb-4">
             <h2 className="font-['Borna',sans-serif] leading-[24px] text-[#0f0f0f] text-[16px] tracking-[-0.064px]" style={{ fontWeight: 600 }}>
               Mest populære apper

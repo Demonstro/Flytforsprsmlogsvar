@@ -20,6 +20,7 @@ export interface ServiceCardProps {
   };
   buttons: ServiceButton[];
   detailLink?: string;
+  fullWidth?: boolean;
 }
 
 export function ServiceCard({
@@ -29,9 +30,10 @@ export function ServiceCard({
   status,
   buttons,
   detailLink = "#",
+  fullWidth,
 }: ServiceCardProps) {
   return (
-    <div className="bg-white h-full rounded-[12px] shrink-0 w-[289px] flex flex-col">
+    <div className={`bg-white h-full rounded-[12px] flex flex-col ${fullWidth ? "w-full" : "shrink-0 w-[289px]"}`}>
       <div className="overflow-clip rounded-[inherit] size-full">
         <div className="flex flex-col gap-[12px] p-[12px] size-full">
           {/* Header */}

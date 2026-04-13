@@ -152,7 +152,7 @@ export function Hjelpetjenester() {
       ) : (
         <>
           {/* ─── Psykisk helse carousel ─── */}
-          <TagCarousel title="Psykisk helse" services={psykiskHelseServices} />
+          <TagCarousel title="Psykisk helse" services={psykiskHelseServices} seeAllLink="/hjelpetjenester/kategori/folelser-identitet-forelskelse/psykisk-helse" />
 
           {/* ─── Hjelp nær deg ─── */}
           <div className="px-3 py-8">
@@ -194,19 +194,19 @@ export function Hjelpetjenester() {
           </div>
 
           {/* ─── Utdanning carousel ─── */}
-          <TagCarousel title="Utdanning" services={utdanningServices} />
+          <TagCarousel title="Utdanning" services={utdanningServices} seeAllLink="/hjelpetjenester/kategori/skole-utdanning-jobb/utdanning" />
 
           {/* ─── Sex carousel ─── */}
-          <TagCarousel title="Sex" services={sexServices} />
+          <TagCarousel title="Sex" services={sexServices} seeAllLink="/hjelpetjenester/kategori/kropp-helse-sex/sex" />
 
           {/* ─── Problemer hjemme (compact) ─── */}
-          <CompactCarousel title="Problemer hjemme" services={problHjemmeServices} />
+          <CompactCarousel title="Problemer hjemme" services={problHjemmeServices} seeAllLink="/hjelpetjenester/kategori/familie-venner-fritid/vold" />
 
           {/* ─── Mest populære apper (compact) ─── */}
           <CompactCarousel title="Mest populære apper" services={appServices} />
 
           {/* ─── Rusmidler carousel ─── */}
-          <TagCarousel title="Rusmidler" services={rusmiddelServices} />
+          <TagCarousel title="Rusmidler" services={rusmiddelServices} seeAllLink="/hjelpetjenester/kategori/kropp-helse-sex/rusmidler" />
         </>
       )}
     </div>
@@ -214,7 +214,7 @@ export function Hjelpetjenester() {
 }
 
 /* ─── Tag carousel with large ServiceCards ─── */
-function TagCarousel({ title, services }: { title: string; services: ServiceData[] }) {
+function TagCarousel({ title, services, seeAllLink }: { title: string; services: ServiceData[]; seeAllLink?: string }) {
   if (services.length === 0) return null;
   return (
     <div className="mb-8 px-3">
@@ -222,15 +222,21 @@ function TagCarousel({ title, services }: { title: string; services: ServiceData
         <h2 className="font-['Borna',sans-serif] leading-[24px] text-[#0f0f0f] text-[18px] tracking-[-0.072px]" style={{ fontWeight: 600 }}>
           {title}
         </h2>
-        <span className="font-['Open_Sans',sans-serif] font-semibold leading-[24px] text-[#454545] text-[14px] tracking-[-0.056px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-          Se alle
-        </span>
+        {seeAllLink ? (
+          <Link to={seeAllLink} className="font-['Open_Sans',sans-serif] font-semibold leading-[24px] text-[#454545] text-[14px] tracking-[-0.056px] whitespace-nowrap hover:text-[#2b5944] transition-colors" style={{ fontVariationSettings: "'wdth' 100" }}>
+            Se alle
+          </Link>
+        ) : (
+          <span className="font-['Open_Sans',sans-serif] font-semibold leading-[24px] text-[#454545] text-[14px] tracking-[-0.056px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+            Se alle
+          </span>
+        )}
       </div>
       <div
         className="flex gap-3 items-stretch overflow-x-auto -ml-3 pl-3 w-[calc(100%+0.75rem)] -my-2 py-2 pb-2 scrollbar-hide"
         style={{ scrollbarWidth: "none" }}
       >
-        {services.map((service) => (
+        {services.slice(0, 5).map((service) => (
           <div key={service.slug} className="flex shrink-0">
             <ServiceCard {...toCardProps(service)} />
           </div>
@@ -242,7 +248,7 @@ function TagCarousel({ title, services }: { title: string; services: ServiceData
 }
 
 /* ─── Compact carousel with small cards ─── */
-function CompactCarousel({ title, services }: { title: string; services: ServiceData[] }) {
+function CompactCarousel({ title, services, seeAllLink }: { title: string; services: ServiceData[]; seeAllLink?: string }) {
   if (services.length === 0) return null;
   return (
     <div className="mb-8 px-3">
@@ -250,15 +256,21 @@ function CompactCarousel({ title, services }: { title: string; services: Service
         <h2 className="font-['Borna',sans-serif] leading-[24px] text-[#0f0f0f] text-[18px] tracking-[-0.072px]" style={{ fontWeight: 600 }}>
           {title}
         </h2>
-        <span className="font-['Open_Sans',sans-serif] font-semibold leading-[24px] text-[#454545] text-[14px] tracking-[-0.056px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-          Se alle
-        </span>
+        {seeAllLink ? (
+          <Link to={seeAllLink} className="font-['Open_Sans',sans-serif] font-semibold leading-[24px] text-[#454545] text-[14px] tracking-[-0.056px] whitespace-nowrap hover:text-[#2b5944] transition-colors" style={{ fontVariationSettings: "'wdth' 100" }}>
+            Se alle
+          </Link>
+        ) : (
+          <span className="font-['Open_Sans',sans-serif] font-semibold leading-[24px] text-[#454545] text-[14px] tracking-[-0.056px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+            Se alle
+          </span>
+        )}
       </div>
       <div
         className="flex gap-3 items-stretch overflow-x-auto -ml-3 pl-3 w-[calc(100%+0.75rem)] -my-2 py-2 pb-2 scrollbar-hide"
         style={{ scrollbarWidth: "none" }}
       >
-        {services.map((service) => (
+        {services.slice(0, 5).map((service) => (
           <CompactCard key={service.slug} service={service} />
         ))}
         <div className="shrink-0 w-0" />

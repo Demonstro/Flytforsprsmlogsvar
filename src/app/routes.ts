@@ -38,6 +38,14 @@ export const router = createBrowserRouter([
         lazy: () => import("./pages/hjelpetjenester").then((m) => ({ Component: m.Hjelpetjenester })),
       },
       {
+        path: "hjelpetjenester/kategori/:categorySlug",
+        lazy: () => import("./pages/service-category").then((m) => ({ Component: m.ServiceCategoryPage })),
+      },
+      {
+        path: "hjelpetjenester/kategori/:categorySlug/:subCategorySlug",
+        lazy: () => import("./pages/service-category").then((m) => ({ Component: m.ServiceSubCategoryPage })),
+      },
+      {
         path: "hjelpetjenester/:slug",
         lazy: () => import("./pages/service-detail").then((m) => ({ Component: m.ServiceDetail })),
       },

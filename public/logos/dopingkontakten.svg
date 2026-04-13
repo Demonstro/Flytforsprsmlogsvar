@@ -1,10 +1,4 @@
-<svg preserveAspectRatio="xMidYMid meet" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 47.915 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Logo">
-<path d="M47.915 48H0V44.0615H47.915V48Z" fill="var(--fill-0, black)"/>
-<path d="M47.915 41.9277H0V37.9893H47.915V41.9277Z" fill="var(--fill-0, black)"/>
-<path d="M47.915 35.9385H0V32H47.915V35.9385Z" fill="var(--fill-0, black)"/>
-<path d="M47.915 12.0615V16H0V12.0615H47.915Z" fill="var(--fill-0, black)"/>
-<path d="M47.915 10.0098H0V6.07129H47.915V10.0098Z" fill="var(--fill-0, black)"/>
-<path d="M47.915 3.93848H0V0H47.915V3.93848Z" fill="var(--fill-0, black)"/>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 80 80">
+  <path fill="#2EBEF0" d="M0 12C0 5.373 5.373 0 12 0h56c6.627 0 12 5.373 12 12v56c0 6.627-5.373 12-12 12H12C5.373 80 0 74.627 0 68V12Z"/>
+  <path fill="#000" d="M63.887 64H15.972v-3.938h47.915V64Zm0-6.072H15.972v-3.939h47.915v3.939Zm0-5.99H15.972V48h47.915v3.938Zm0-23.877V32H15.972v-3.939h47.915Zm0-2.051H15.972v-3.94h47.915v3.939Zm0-6.071H15.972V16h47.915v3.939Z"/>
 </svg>
