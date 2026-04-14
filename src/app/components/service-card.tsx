@@ -2,10 +2,26 @@ import { Link } from "react-router";
 import { ArrowRightSmallIcon } from "./shared";
 import svgPaths from "../../imports/HelpServicesLandingPage/svg-mtcrfxvim5";
 
+const isIOS = typeof navigator !== "undefined" && /iPad|iPhone|iPod/.test(navigator.userAgent);
+const isAndroid = typeof navigator !== "undefined" && /Android/.test(navigator.userAgent);
+
+function PlayStoreIcon() {
+  return (
+    <svg className="size-[20px] shrink-0" viewBox="0 0 20 20" fill="none">
+      <path d="M3.5 2.13a1 1 0 0 0-.5.87v14a1 1 0 0 0 .5.87l7.5-7.87L3.5 2.13Z" fill="white" />
+      <path d="M13.1 8.37 5.07 3.63 11 10l2.1-1.63Z" fill="white" />
+      <path d="M13.1 11.63 11 10l-5.93 6.37 8.03-4.74Z" fill="white" />
+      <path d="M15.5 9.13l-2.4 1.5L15.5 9.13Zm0 1.74-2.4-1.5 2.4 1.5Z" fill="white" />
+      <path d="M16 10a.94.94 0 0 0-.5-.87l-2.4-1.4L11 10l2.1 2.27 2.4-1.4A.94.94 0 0 0 16 10Z" fill="white" />
+    </svg>
+  );
+}
+
 interface ServiceButton {
   type: "chat" | "phone" | "download";
   label: string;
   href?: string;
+  hrefAndroid?: string;
   disabled?: boolean;
   icon?: "apple" | "phone";
 }
@@ -104,16 +120,19 @@ export function ServiceCard({
   );
 }
 
-function ServiceButton({ type, label, href = "#", disabled = false, icon }: ServiceButton) {
+function ServiceButton({ type, label, href = "#", hrefAndroid, disabled = false, icon }: ServiceButton) {
   const baseClasses = "flex gap-[8px] items-center min-h-[44px] px-[20px] py-[10px] rounded-[9999px] transition-colors";
 
   if (type === "download") {
+    const showAndroid = isAndroid && icon === "apple";
+    const displayLabel = showAndroid ? "Last ned fra Google Play" : label;
+    const resolvedHref = showAndroid && hrefAndroid ? hrefAndroid : href;
     return (
       <a
-        href={href}
+        href={resolvedHref}
         className={`${baseClasses} bg-[#2b5944] hover:bg-[#1f4133] text-white`}
       >
-        {icon === "apple" && (
+        {icon === "apple" && !showAndroid && (
           <div className="size-[20px] relative">
             <svg className="absolute block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
               <path d={svgPaths.pdea9900} fill="white" />
@@ -121,8 +140,9 @@ function ServiceButton({ type, label, href = "#", disabled = false, icon }: Serv
             </svg>
           </div>
         )}
+        {showAndroid && <PlayStoreIcon />}
         <span className="font-['Open_Sans',sans-serif] font-semibold leading-[24px] text-[16px] tracking-[-0.064px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
-          {label}
+          {displayLabel}
         </span>
       </a>
     );

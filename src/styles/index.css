@@ -1,3 +1,6 @@
 @import './fonts.css';
 @import './tailwind.css';
 @import './theme.css';
+
+ol { list-style-type: decimal; }
+ul { list-style-type: disc; }

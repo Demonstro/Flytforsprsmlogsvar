@@ -176,7 +176,7 @@ export function Hjelpetjenester() {
           ) : (
             <div className="flex flex-col gap-3">
               {allFiltered.map((service) => (
-                <ServiceCard key={service.slug} {...toCardProps(service)} />
+                <ServiceCard key={service.slug} {...toCardProps(service)} fullWidth />
               ))}
             </div>
           )}

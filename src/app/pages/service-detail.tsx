@@ -2,7 +2,9 @@ import { useParams, Link, useNavigate } from "react-router";
 import { ALL_SERVICES, getServiceBySlug, sortByOpenStatus, type ServiceData, type WeeklyHours, isDognapen, getOpenStatus } from "../data/services";
 import svgPaths from "../../imports/HelpServicesLandingPage/svg-mtcrfxvim5";
 import serviceSvgPaths from "../../imports/ServicePage/svg-sayhlcbu1w";
-import { SERVICE_IMG_1 as imgImage, SERVICE_IMG_2 as imgImage1, SERVICE_IMG_3 as imgImage2 } from "../data/images";
+const base = import.meta.env.BASE_URL;
+
+const isAndroid = typeof navigator !== "undefined" && /Android/.test(navigator.userAgent);
 
 /* ─── Icons ─── */
 function AppleIcon() {
@@ -10,6 +12,17 @@ function AppleIcon() {
     <svg width={20} height={20} viewBox="0 0 20 20" fill="none">
       <path d={svgPaths.pdea9900} fill="white" />
       <path d={svgPaths.p37acfa00} fill="white" />
+    </svg>
+  );
+}
+
+function PlayStoreIcon() {
+  return (
+    <svg className="size-[20px] shrink-0" viewBox="0 0 20 20" fill="none">
+      <path d="M3.5 2.13a1 1 0 0 0-.5.87v14a1 1 0 0 0 .5.87l7.5-7.87L3.5 2.13Z" fill="white" />
+      <path d="M13.1 8.37 5.07 3.63 11 10l2.1-1.63Z" fill="white" />
+      <path d="M13.1 11.63 11 10l-5.93 6.37 8.03-4.74Z" fill="white" />
+      <path d="M16 10a.94.94 0 0 0-.5-.87l-2.4-1.4L11 10l2.1 2.27 2.4-1.4A.94.94 0 0 0 16 10Z" fill="white" />
     </svg>
   );
 }
@@ -24,7 +37,7 @@ function WebIcon() {
 }
 
 // Grubl gets screenshots
-const GRUBL_IMAGES = [imgImage, imgImage1, imgImage2];
+const GRUBL_IMAGES = [`${base}images/grubl-3.png`, `${base}images/grubl-2.png`, `${base}images/grubl-1.png`];
 
 /* ─── Opening hours table ─── */
 const DAY_LABELS: { key: keyof WeeklyHours; label: string }[] = [
@@ -203,7 +216,7 @@ export function ServiceDetail() {
           </div>
 
           {/* Ingress */}
-          <p className="font-['Open_Sans',sans-serif] font-normal leading-[26px] max-w-[351px] text-[#0f0f0f] text-[18px] tracking-[-0.072px]" style={{ fontVariationSettings: "'wdth' 100" }}>
+          <p className="font-['Open_Sans',sans-serif] font-normal leading-[26px] text-[#0f0f0f] text-[18px] tracking-[-0.072px] w-full" style={{ fontVariationSettings: "'wdth' 100" }}>
             {service.ingress}
           </p>
 
@@ -224,10 +237,15 @@ export function ServiceDetail() {
         <div className="px-3 pt-8 pb-0 flex flex-wrap gap-4">
           {service.actionButtons.map((btn, i) => {
             if (btn.type === "download") {
+              const showAndroid = isAndroid && btn.icon === "apple";
+              const resolvedHref = showAndroid && btn.hrefAndroid ? btn.hrefAndroid : btn.href;
               return (
-                <a key={i} href={btn.href} className="inline-flex gap-2 items-center bg-[#2b5944] hover:bg-[#3c7c5e] text-white min-h-[44px] px-5 py-[10px] rounded-[9999px] transition-colors">
-                  {btn.icon === "apple" && <AppleIcon />}
-                  <span className="font-['Open_Sans',sans-serif] font-semibold leading-[24px] text-[16px] tracking-[-0.064px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>{btn.label}</span>
+                <a key={i} href={resolvedHref} className="inline-flex gap-2 items-center bg-[#2b5944] hover:bg-[#3c7c5e] text-white min-h-[44px] px-5 py-[10px] rounded-[9999px] transition-colors">
+                  {btn.icon === "apple" && !showAndroid && <AppleIcon />}
+                  {showAndroid && <PlayStoreIcon />}
+                  <span className="font-['Open_Sans',sans-serif] font-semibold leading-[24px] text-[16px] tracking-[-0.064px] whitespace-nowrap" style={{ fontVariationSettings: "'wdth' 100" }}>
+                    {showAndroid ? "Last ned fra Google Play" : btn.label}
+                  </span>
                 </a>
               );
             }

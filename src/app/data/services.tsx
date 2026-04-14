@@ -103,6 +103,7 @@ export interface ServiceData {
     label: string;
     href: string;
     icon?: "apple";
+    hrefAndroid?: string;
     disabled?: boolean;
   }[];
   body: React.ReactNode;
@@ -406,33 +407,6 @@ export const ALL_SERVICES: ServiceData[] = [
       fredag: ["00:00 - 01:30", "18:30 - 24:00"],
       lordag: ["00:00 - 01:30", "14:30 - 24:00"],
       sondag: ["00:00 - 01:30", "14:30 - 24:00"],
-    },
-  },
-  {
-    slug: "ung-no-chat",
-    type: "snakk",
-    title: "ung.no chat",
-    ingress: "Lurer du på noe? Chat med oss anonymt og gratis om alt som opptar deg som ung.",
-    logo: <ImgLogo src="snakkompsyken.svg" />,
-    metaType: "Chat",
-    metaLanguage: "Norsk bokmål",
-    tags: ["Psykisk helse og følelser", "Selvtillit og identitet", "Sex", "Kropp", "Familie", "Skolehverdag", "Mobbing"],
-    actionButtons: [
-      { type: "chat", label: "Chat", href: "https://www.ung.no/chat" },
-    ],
-    body: (
-      <p className="leading-[24px]">ung.no tilbyr gratis og anonym chat der du kan snakke med fagpersoner om alt som opptar deg. Vi er her for deg uansett hva du lurer på – følelser, kropp, sex, skole, familie, venner eller noe helt annet.</p>
-    ),
-    responsible: "Barne-, ungdoms- og familiedirektoratet (Bufdir)",
-    relatedTopics: ["Psykisk helse og følelser", "Selvtillit og identitet", "Sex", "Kropp", "Familie", "Skolehverdag", "Mobbing"],
-    openingHours: {
-      mandag: ["14:30 - 21:00"],
-      tirsdag: ["14:30 - 21:00"],
-      onsdag: ["14:30 - 21:00"],
-      torsdag: ["14:30 - 21:00"],
-      fredag: ["14:30 - 21:00"],
-      lordag: ["15:00 - 21:00"],
-      sondag: ["15:00 - 21:00"],
     },
   },
   {
@@ -1448,7 +1422,7 @@ export const ALL_SERVICES: ServiceData[] = [
     metaLanguage: "Norsk bokmål",
     tags: ["Psykisk helse og følelser", "Selvtillit og identitet", "Helsa di"],
     actionButtons: [
-      { type: "download", label: "Last ned fra App Store", href: "#", icon: "apple" },
+      { type: "download", label: "Last ned fra App Store", href: "#", icon: "apple", hrefAndroid: "https://play.google.com/store/apps/details?id=no.youwell.grubl" },
     ],
     body: (
       <>
@@ -1513,7 +1487,7 @@ export const ALL_SERVICES: ServiceData[] = [
     metaLanguage: "Norsk bokmål",
     tags: ["Trening og idrett", "Helsa di"],
     actionButtons: [
-      { type: "download", label: "Last ned fra App Store", href: "https://apps.apple.com/us/app/gå-10/id1447263129", icon: "apple" },
+      { type: "download", label: "Last ned fra App Store", href: "https://apps.apple.com/us/app/gå-10/id1447263129", icon: "apple", hrefAndroid: "https://play.google.com/store/apps/details?id=no.helsedirektoratet.ga10" },
     ],
     body: (<p className="leading-[24px]">Gå10 er en app for deg som trenger motivasjon for å komme i gang med mer bevegelse. Appen registrerer tiden du går, og gir ekstrapoeng for tempo.</p>),
     responsible: "Helsedirektoratet",
@@ -1636,12 +1610,12 @@ export const ALL_SERVICES: ServiceData[] = [
     type: "selvhjelp",
     title: "NettOpp",
     ingress: "NettOpp lærer deg hvordan du kan håndtere negative hendelser på nett.",
-    logo: <ColorLogo bg="#6366f1" text="NO" />,  /* NettOpp - no Figma logo */
+    logo: <ImgLogo src="nettopp.svg" />,
     metaType: "Mobil-app",
     metaLanguage: "Norsk bokmål",
     tags: ["Psykisk helse og følelser", "Nettvett og sosiale medier", "Helsa di"],
     actionButtons: [
-      { type: "download", label: "Last ned fra App Store", href: "https://apps.apple.com/no/app/nettopp/id1478735947", icon: "apple" },
+      { type: "download", label: "Last ned fra App Store", href: "https://apps.apple.com/no/app/nettopp/id1478735947", icon: "apple", hrefAndroid: "https://play.google.com/store/apps/details?id=no.uit.rkbu.nettopp" },
     ],
     body: (<p className="leading-[24px]">NettOpp lærer deg hvordan du kan håndtere negative hendelser på nett. I appen får du informasjon om følelser som det er vanlig å få dersom du opplever noe vondt på nett.</p>),
     responsible: "UiT / RKBU Nord",
@@ -1652,12 +1626,12 @@ export const ALL_SERVICES: ServiceData[] = [
     type: "selvhjelp",
     title: "Opp",
     ingress: "Opp gir deg informasjon om psykisk helse, tanker og følelser. Du får råd om hvor og hvordan du kan be om hjelp hvis du trenger det.",
-    logo: <ColorLogo bg="#6366f1" text="Opp" />,  /* Opp - no Figma logo */
+    logo: <ImgLogo src="opp.svg" />,
     metaType: "Mobil-app",
     metaLanguage: "Norsk bokmål",
     tags: ["Psykisk helse og følelser", "Helsa di", "Psykiske vansker", "Selvtillit og identitet"],
     actionButtons: [
-      { type: "download", label: "Last ned fra App Store", href: "https://apps.apple.com/no/app/opp/id1565803110", icon: "apple" },
+      { type: "download", label: "Last ned fra App Store", href: "https://apps.apple.com/no/app/opp/id1565803110", icon: "apple", hrefAndroid: "https://play.google.com/store/apps/details?id=no.uit.rkbu.opp" },
     ],
     body: (<p className="leading-[24px]">Opp gir deg informasjon om psykisk helse, tanker og følelser. Du får råd om hvor og hvordan du kan be om hjelp hvis du trenger det.</p>),
     responsible: "UiT / RKBU Nord",
@@ -1689,7 +1663,7 @@ export const ALL_SERVICES: ServiceData[] = [
     metaLanguage: "Norsk bokmål",
     tags: ["Sex", "Forelskelse", "Seksuelle overgrep"],
     actionButtons: [
-      { type: "download", label: "Last ned fra App Store", href: "https://apps.apple.com/no/app/skamløs/id6739490403?l=nb", icon: "apple" },
+      { type: "download", label: "Last ned fra App Store", href: "https://apps.apple.com/no/app/skamløs/id6739490403?l=nb", icon: "apple", hrefAndroid: "https://play.google.com/store/apps/details?id=com.megapop.skamlos" },
     ],
     body: (<p className="leading-[24px]">Skamløs er et spill der du kan følge historien til seks ungdommer i deres møte med livet, sex og kjærligheten. Det er du som tar valgene og påvirker hvilken vei historien tar.</p>),
     responsible: "Helsedirektoratet",
@@ -1705,7 +1679,7 @@ export const ALL_SERVICES: ServiceData[] = [
     metaLanguage: "Norsk bokmål",
     tags: ["Tobakk"],
     actionButtons: [
-      { type: "download", label: "Last ned fra App Store", href: "https://apps.apple.com/us/app/id1514235393", icon: "apple" },
+      { type: "download", label: "Last ned fra App Store", href: "https://apps.apple.com/us/app/id1514235393", icon: "apple", hrefAndroid: "https://play.google.com/store/apps/details?id=no.helsedir.slutta2020" },
     ],
     body: (<p className="leading-[24px]">Slutta er en app som kan gjøre det lettere for deg å slutte med røyk og snus. Gjennom appen får du gode råd og tips, og daglige motivasjonsmeldinger.</p>),
     responsible: "Helsedirektoratet",
@@ -1737,7 +1711,7 @@ export const ALL_SERVICES: ServiceData[] = [
     metaLanguage: "Norsk bokmål",
     tags: ["Psykisk helse og følelser", "Helsa di", "Psykiske vansker"],
     actionButtons: [
-      { type: "download", label: "Last ned fra App Store", href: "https://apps.apple.com/no/app/tankevirus/id1584631173?l=nb", icon: "apple" },
+      { type: "download", label: "Last ned fra App Store", href: "https://apps.apple.com/no/app/tankevirus/id1584631173?l=nb", icon: "apple", hrefAndroid: "https://play.google.com/store/apps/details?id=com.tankevirus" },
     ],
     body: (<p className="leading-[24px]">Tankevirus er en app som kan hjelpe deg hvis du har negative tanker. Gjennom daglige videoer og små morsomme oppgaver får du hjelp til å håndtere disse tankene.</p>),
     responsible: "Helsedirektoratet",
@@ -1769,7 +1743,7 @@ export const ALL_SERVICES: ServiceData[] = [
     metaLanguage: "Norsk bokmål",
     tags: ["Psykisk helse og følelser", "Selvtillit og identitet", "Skolehverdag"],
     actionButtons: [
-      { type: "download", label: "Last ned fra App Store", href: "https://apps.apple.com/no/app/ungspotlight/id1673711941?l=nb", icon: "apple" },
+      { type: "download", label: "Last ned fra App Store", href: "https://apps.apple.com/no/app/ungspotlight/id1673711941?l=nb", icon: "apple", hrefAndroid: "https://play.google.com/store/apps/details?id=no.youwell.ungSpotlight" },
     ],
     body: (<p className="leading-[24px]">UngSpotlight er et selvhjelpsprogram for deg som er redd for å snakke foran klassen. I programmet lærer du teknikker som kan hjelpe deg i slike situasjoner.</p>),
     responsible: "UiT / RKBU Nord",
@@ -1891,6 +1865,7 @@ export function toCardProps(s: ServiceData): ServiceCardProps {
       label: b.label,
       href: b.href,
       icon: b.icon,
+      hrefAndroid: b.hrefAndroid,
       disabled: isClosed && (b.type === "chat" || b.type === "phone"),
     })),
     detailLink: `/hjelpetjenester/${s.slug}`,
