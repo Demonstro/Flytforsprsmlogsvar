@@ -146,56 +146,36 @@ function ServiceCardItem({
   );
 }
 
+/* ─── Entrance card for new design ─── */
+const base = import.meta.env.BASE_URL;
+
+function EntranceCard({ to, bgColor, title, illustration }: { to: string; bgColor: string; title: string; illustration: string }) {
+  return (
+    <Link to={to} className="flex gap-4 items-center px-4 py-2 rounded-[12px] w-full" style={{ backgroundColor: bgColor }}>
+      <img src={`${base}illustrations/${illustration}`} alt="" className="size-[64px] shrink-0 object-contain" />
+      <div className="flex-1 flex gap-3 items-center min-w-0">
+        <p className="flex-1 font-['Borna',sans-serif] leading-[26px] text-[#0f0f0f] text-[18px] tracking-[-0.072px]" style={{ fontWeight: 600 }}>
+          {title}
+        </p>
+        <div className="shrink-0 size-[28px]">
+          <svg className="block size-full" fill="none" viewBox="0 0 20 20">
+            <path clipRule="evenodd" d={svgPaths.pad10300} fill="#0F0F0F" fillRule="evenodd" />
+          </svg>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 /* ─── Exported Services List ─── */
 
 export function ServiceCards() {
   return (
     <div className="flex flex-col gap-3">
-      <ServiceCardItem
-        to="/sporsmaal-og-svar"
-        bgColor="#89c6aa"
-        title="Spørsmål og svar"
-        blobAspect="502.934326171875/633.8216552734375"
-        blobViewBox="0 0 46.3401 58.4"
-        blobPath={svgPaths.pc6f780}
-        blobColor="#ACD7C3"
-        blobTop="3.75%"
-        blobBottom="5%"
-        sticker={<SporsmaalSticker />}
-      />
-      <ServiceCardItem
-        bgColor="#abaeff"
-        title="Snakk med noen"
-        blobAspect="656.7822265625/510.9415588378906"
-        blobViewBox="0 0 60.6725 47.2"
-        blobPath={svgPaths.p5241d80}
-        blobColor="#7479FF"
-        blobTop="12.5%"
-        blobBottom="13.75%"
-        sticker={<SnakkSticker />}
-      />
-      <ServiceCardItem
-        bgColor="#d2b2a7"
-        title="Hjelp nær deg"
-        blobAspect="70.23435974121094/68.98245239257812"
-        blobViewBox="0 0 56.1775 55.1761"
-        blobPath={svgPaths.pad23c80}
-        blobColor="#AF7664"
-        blobTop="6.29%"
-        blobBottom="7.5%"
-        sticker={<HjelpSticker />}
-      />
-      <ServiceCardItem
-        bgColor="#cfe8dc"
-        title="Selvhjelpsverktøy"
-        blobAspect="610.59521484375/577.9630737304688"
-        blobViewBox="0 0 54.936 52"
-        blobPath={svgPaths.p3ddba0f0}
-        blobColor="#54AF84"
-        blobTop="8.75%"
-        blobBottom="10%"
-        sticker={<SelvhjelpSticker />}
-      />
+      <EntranceCard to="/sporsmaal-og-svar" bgColor="#89c6aa" title="Spørsmål og svar" illustration="question.svg" />
+      <EntranceCard to="/hjelpetjenester" bgColor="#f2a2a0" title="Hjelpetjenester" illustration="hjertetegn.svg" />
+      <EntranceCard to="#" bgColor="#d2b2a7" title="Hjelp nær deg" illustration="skilt.svg" />
+      <EntranceCard to="#" bgColor="#dbddff" title="Søk i hele siden" illustration="sok.svg" />
     </div>
   );
 }

@@ -24,99 +24,77 @@ const AGE_OPTIONS = Array.from({ length: 8 }, (_, i) => `${13 + i}`);
 
 const GENDER_OPTIONS = ["Jente", "Gutt", "Annet"];
 
-/* ─── Hierarchical topic data ─── */
+/* ─── Topic list data ─── */
 type TopicItem =
-  | { type: "super"; label: string }
-  | { type: "category"; label: string }
+  | { type: "header"; label: string }
+  | { type: "item"; label: string }
   | { type: "sub"; label: string };
 
 const TOPIC_ITEMS: TopicItem[] = [
-  { type: "super", label: "Kropp, helse og sex" },
-  { type: "category", label: "Kropp" },
-  { type: "sub", label: "Vulva og vagina" },
-  { type: "sub", label: "Penis og pung" },
-  { type: "sub", label: "Pubertet" },
-  { type: "sub", label: "Mensen" },
-  { type: "sub", label: "Funksjonsnedsettelser" },
-  { type: "sub", label: "Tannhelse" },
-  { type: "category", label: "Helsa di" },
-  { type: "sub", label: "Sykdom" },
-  { type: "sub", label: "Mat og kosthold" },
-  { type: "sub", label: "Trening og idrett" },
-  { type: "sub", label: "Doping" },
-  { type: "sub", label: "Korona" },
-  { type: "category", label: "Sex" },
-  { type: "sub", label: "Onanering" },
-  { type: "sub", label: "Prevensjon" },
-  { type: "sub", label: "Kjønnssykdommer" },
-  { type: "sub", label: "P-piller" },
-  { type: "sub", label: "Graviditet" },
-  { type: "category", label: "Rusmidler" },
-  { type: "sub", label: "Alkohol" },
-  { type: "sub", label: "Tobakk" },
-  { type: "sub", label: "Cannabis" },
-  { type: "super", label: "Skole, utdanning og jobb" },
-  { type: "category", label: "Skolehverdag" },
-  { type: "sub", label: "Leksehjelp" },
-  { type: "sub", label: "Eksamen" },
-  { type: "sub", label: "Russetid" },
-  { type: "category", label: "Utdanning" },
+  { type: "header", label: "Skole, utdanning og jobb" },
+  { type: "item", label: "Skolehverdag" },
+  { type: "item", label: "Russetid" },
+  { type: "item", label: "Utdanning" },
   { type: "sub", label: "Ungdomsskole" },
   { type: "sub", label: "Videregående skole" },
   { type: "sub", label: "Høyere utdanning" },
-  { type: "sub", label: "Studier i utlandet" },
   { type: "sub", label: "Stipend og støtte" },
   { type: "sub", label: "Verneplikt / Forsvaret" },
-  { type: "category", label: "Jobb" },
-  { type: "sub", label: "Sommerjobb" },
-  { type: "sub", label: "Lærling" },
+  { type: "item", label: "Jobb" },
   { type: "sub", label: "Frivillig arbeid" },
-  { type: "super", label: "Følelser, identitet og forelskelse" },
-  { type: "category", label: "Forelskelse" },
+  { type: "header", label: "Kropp, helse og sex" },
+  { type: "item", label: "Helsa di" },
+  { type: "sub", label: "Mat og kosthold" },
+  { type: "sub", label: "Trening og idrett" },
+  { type: "sub", label: "Doping" },
+  { type: "item", label: "Kropp" },
+  { type: "sub", label: "Pubertet" },
+  { type: "item", label: "Sex" },
+  { type: "sub", label: "Prevensjon" },
+  { type: "sub", label: "Kjønnssykdommer" },
+  { type: "sub", label: "Graviditet" },
+  { type: "item", label: "Rusmidler" },
+  { type: "sub", label: "Alkohol" },
+  { type: "sub", label: "Tobakk" },
+  { type: "header", label: "Følelser, identitet og forelskelse" },
+  { type: "item", label: "Forelskelse" },
   { type: "sub", label: "Forhold" },
-  { type: "category", label: "Psykisk helse og følelser" },
-  { type: "sub", label: "Psykiske vansker" },
+  { type: "item", label: "Psykisk helse og følelser" },
   { type: "sub", label: "Selvtillit og identitet" },
   { type: "sub", label: "Mobbing" },
   { type: "sub", label: "Spiseforstyrrelser" },
   { type: "sub", label: "Selvskading" },
   { type: "sub", label: "Sorg og krise" },
   { type: "sub", label: "Hva kan hjelpe" },
-  { type: "category", label: "Selvtillit og identitet" },
+  { type: "item", label: "Selvtillit og identitet" },
   { type: "sub", label: "Skeiv" },
   { type: "sub", label: "Krysskulturell" },
   { type: "sub", label: "Kjønnsidentitet" },
-  { type: "sub", label: "Konfirmasjon" },
-  { type: "super", label: "Kriminalitet, rettigheter og samfunn" },
-  { type: "category", label: "Kriminalitet" },
-  { type: "sub", label: "Seksuelle overgrep" },
-  { type: "sub", label: "Vold" },
-  { type: "sub", label: "Kjønnslemlestelse" },
-  { type: "category", label: "Lov og rett" },
-  { type: "sub", label: "Aldersgrenser" },
-  { type: "sub", label: "Lovbrudd" },
-  { type: "sub", label: "Rettighetene dine" },
-  { type: "sub", label: "Konfliktløsning" },
-  { type: "sub", label: "Likestilling og diskriminering" },
-  { type: "category", label: "Demokrati og valg" },
-  { type: "sub", label: "Førestegangsvelger" },
-  { type: "category", label: "Klima og miljø" },
-  { type: "super", label: "Familie, venner og fritid" },
-  { type: "category", label: "Familie" },
+  { type: "header", label: "Familie, venner og fritid" },
+  { type: "item", label: "Vennskap" },
+  { type: "item", label: "Nettvett og sosiale medier" },
+  { type: "item", label: "Familie" },
   { type: "sub", label: "Barnevern" },
-  { type: "sub", label: "Fosterhjem" },
   { type: "sub", label: "Problemer hjemme" },
-  { type: "sub", label: "Skilsmisse" },
-  { type: "category", label: "Fritid" },
-  { type: "sub", label: "Spill og gaming" },
-  { type: "sub", label: "Vennskap" },
-  { type: "sub", label: "Nettvett og sosiale medier" },
-  { type: "category", label: "Økonomien din" },
+  { type: "item", label: "Økonomien din" },
   { type: "sub", label: "Forbruker" },
   { type: "sub", label: "Førerkort" },
   { type: "sub", label: "Bolig / flytte hjemmefra" },
   { type: "sub", label: "Reise" },
   { type: "sub", label: "Toll" },
+  { type: "header", label: "Kriminalitet, rettigheter og samfunn" },
+  { type: "item", label: "Kriminalitet" },
+  { type: "sub", label: "Seksuelle overgrep" },
+  { type: "sub", label: "Vold" },
+  { type: "sub", label: "Kjønnslemlestelse" },
+  { type: "item", label: "Lov og rett" },
+  { type: "sub", label: "Aldersgrenser" },
+  { type: "sub", label: "Rettighetene dine" },
+  { type: "sub", label: "Konfliktløsning" },
+  { type: "sub", label: "Likestilling og diskriminering" },
+  { type: "item", label: "Demokrati og valg" },
+  { type: "item", label: "Ris og ros til ung.no" },
+  { type: "item", label: "Annet tema / ingen passer" },
 ];
 
 /* ─── Checkmark SVG path ─── */
@@ -322,7 +300,7 @@ function TopicDropdown({
   };
 
   return (
-    <div className="flex flex-col items-start w-full" ref={containerRef}>
+    <div className="flex flex-col items-start w-full relative" ref={containerRef}>
       <div className="flex gap-1 items-start pb-2 w-full">
         <p
           className="font-['Open_Sans',sans-serif] text-[16px] text-[#0f0f0f] leading-[24px] tracking-[-0.064px]"
@@ -362,75 +340,40 @@ function TopicDropdown({
 
       {/* Dropdown overlay */}
       {open && (
-        <div className="bg-white relative rounded-[8px] w-full mt-1 z-20">
-          <div
-            aria-hidden
-            className="absolute border border-[#0f0f0f] inset-0 pointer-events-none rounded-[8px]"
-          />
-          <div className="flex flex-col items-start max-h-[400px] overflow-y-auto overflow-x-clip pb-1 w-full">
+        <div className="absolute left-0 right-0 top-full mt-1 bg-white rounded-[8px] border border-[#0f0f0f] shadow-lg z-20 overflow-hidden">
+          <div className="flex flex-col items-start max-h-[400px] overflow-y-auto overflow-x-hidden pb-9 w-full">
             {TOPIC_ITEMS.map((item, i) => {
               const isSelected = item.label === value;
 
-              if (item.type === "super") {
-                const isFirst = i === 0;
+              if (item.type === "header") {
                 return (
-                  <button
+                  <div
                     key={`${item.label}-${i}`}
-                    type="button"
-                    className={`relative flex items-center w-full cursor-pointer hover:bg-[#deefe7] ${isFirst ? "py-2" : "pb-2 pt-5"} px-[36px] mx-px`}
-                    onClick={() => handleSelect(item.label)}
+                    className="flex items-center w-full pt-5 pb-2 pl-[36px] pr-3"
                   >
-                    {isSelected && (
-                      <svg className="absolute left-[8px] shrink-0 size-5" viewBox="0 0 20 20" fill="none">
-                        <path clipRule="evenodd" d={CHECK_PATH} fill="#0F0F0F" fillRule="evenodd" />
-                      </svg>
-                    )}
                     <p
                       className="font-['Open_Sans',sans-serif] text-[16px] text-[#0f0f0f] leading-[24px] tracking-[-0.064px]"
                       style={{ fontWeight: 600 }}
                     >
                       {item.label}
                     </p>
-                  </button>
+                  </div>
                 );
               }
 
-              if (item.type === "category") {
-                const prevItem = i > 0 ? TOPIC_ITEMS[i - 1] : null;
-                const isFirstUnderSuper = prevItem?.type === "super";
-                return (
-                  <button
-                    key={`${item.label}-${i}`}
-                    type="button"
-                    className={`relative flex items-center w-full cursor-pointer hover:bg-[#deefe7] ${isFirstUnderSuper ? "py-2" : "pb-2 pt-4"} px-[44px] mx-px`}
-                    onClick={() => handleSelect(item.label)}
-                  >
-                    {isSelected && (
-                      <svg className="absolute left-[8px] shrink-0 size-5" viewBox="0 0 20 20" fill="none">
-                        <path clipRule="evenodd" d={CHECK_PATH} fill="#0F0F0F" fillRule="evenodd" />
-                      </svg>
-                    )}
-                    <p
-                      className="font-['Open_Sans',sans-serif] text-[16px] text-[#0f0f0f] leading-[24px] tracking-[-0.064px]"
-                      style={{ fontWeight: 400 }}
-                    >
-                      {item.label}
-                    </p>
-                  </button>
-                );
-              }
+              const indent = item.type === "sub" ? "pl-[56px]" : "pl-[44px]";
+              const checkLeft = item.type === "sub" ? "left-[28px]" : "left-[16px]";
 
-              // sub items
               return (
                 <button
                   key={`${item.label}-${i}`}
                   type="button"
-                  className="relative flex items-center w-full cursor-pointer hover:bg-[#deefe7] py-2 pl-[56px] pr-[36px]"
+                  className={`relative flex items-center w-full cursor-pointer hover:bg-[#deefe7] py-2 ${indent} pr-3 mx-px`}
                   onClick={() => handleSelect(item.label)}
                 >
                   {isSelected && (
-                    <svg className="absolute left-[20px] shrink-0 size-5" viewBox="0 0 20 20" fill="none">
-                      <path clipRule="evenodd" d={CHECK_PATH} fill="#0F0F0F" fillRule="evenodd" />
+                    <svg className={`absolute ${checkLeft} shrink-0 size-5`} viewBox="0 0 20 20" fill="none">
+                      <path clipRule="evenodd" d={CHECK_PATH} fill="#2b5944" fillRule="evenodd" />
                     </svg>
                   )}
                   <p
@@ -563,7 +506,7 @@ export function SubmitQuestion() {
                     if (e.target.value.length <= MAX_CHARS)
                       setQuestion(e.target.value);
                   }}
-                  className="w-full h-[384px] px-3 py-2 bg-transparent font-['Open_Sans',sans-serif] text-[16px] text-[#0f0f0f] leading-[24px] tracking-[-0.064px] placeholder:text-[#676767] outline-none resize-none rounded-tr-[8px] rounded-bl-[8px] rounded-br-[8px]"
+                  className="w-full h-[288px] px-3 py-2 bg-transparent font-['Open_Sans',sans-serif] text-[16px] text-[#0f0f0f] leading-[24px] tracking-[-0.064px] placeholder:text-[#676767] outline-none resize-none rounded-tr-[8px] rounded-bl-[8px] rounded-br-[8px]"
                   style={{ fontWeight: 400 }}
                 />
               </div>
